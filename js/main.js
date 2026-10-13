@@ -11,20 +11,31 @@
       [...line.trim()].forEach(ch=>{if(ch===' '){l.appendChild(document.createTextNode(' '));return}const s=document.createElement('span');s.className='ch';s.textContent=ch;s.style.animationDelay=(.15+d*.045)+'s';s.style.backgroundPosition=(d++/n*100)+'% 0';l.appendChild(s)});el.appendChild(l)});
     el.setAttribute('aria-label',t.replace(/\n/g,' '))});
   // scroll-linked effects: one cheap update, only when the scroll position changed
-  const bar=$('.progress'),conic=$('.conic'),tl=$('.tl'),fill=$('.tl .fill'),mqs=$$('.mq');
+  const bar=$('.progress'),tl=$('.tl'),fill=$('.tl .fill'),mqs=$$('.mq');
   let per=[],lastY=-1,vel=0;
   const measure=()=>{per=mqs.map(m=>m.scrollWidth/2||1)};
   function update(){
     const y=window.scrollY;if(y===lastY)return;vel=y-lastY;lastY=y;
     const dh=document.documentElement.scrollHeight-innerHeight;
     if(bar)bar.style.transform='scaleX('+(dh>0?y/dh:0)+')';
-    if(conic)conic.style.transform='rotate('+(y*.05)+'deg)';
+    if(window.SCENE)SCENE.update(dh>0?Math.min(1,Math.max(0,y/dh)):0);
+    hud(y,dh);
     if(fill&&tl){const r=tl.getBoundingClientRect();fill.style.height=Math.min(r.height,Math.max(0,innerHeight*.6-r.top))+'px'}
     for(let i=0;i<mqs.length;i++){const o=(y*.35+i*120)%per[i];mqs[i].style.transform='translate3d('+(i%2?-per[i]+o:-o)+'px,0,0)'}
   }
-  addEventListener('resize',()=>{measure();lastY=-1;update()});
-  addEventListener('load',()=>{measure();lastY=-1;update()});
-  measure();
+  // altitude HUD (home only): marker follows scroll, label names the current stage
+  const stages=[['top','Trailhead'],['about','Base camp'],['projects','Treeline'],['skills','Ridge'],['experience','High camp'],['contact','Summit']];
+  let hudEl=null,dot,lab,tops=[];
+  if(document.body.dataset.theme==='home'){hudEl=document.createElement('div');hudEl.className='hud';hudEl.setAttribute('aria-hidden','true');
+    hudEl.innerHTML='<i></i><b>Trailhead</b>'+stages.map((s,i)=>'<u style="top:'+(i/(stages.length-1)*100)+'%"></u>').join('');document.body.appendChild(hudEl);dot=hudEl.querySelector('i');lab=hudEl.querySelector('b')}
+  const measureTops=()=>{tops=stages.map(s=>{const el=document.getElementById(s[0]);return el?el.getBoundingClientRect().top+scrollY:0})};
+  let curStage=-1;
+  function hud(y,dh){if(!hudEl)return;const p=dh>0?y/dh:0;dot.style.top=(p*100)+'%';lab.style.top=(p*100)+'%';
+    let k=0;const mid=y+innerHeight*.45;for(let i=0;i<tops.length;i++)if(mid>=tops[i])k=i;if(y>=dh-4)k=stages.length-1;
+    if(k!==curStage){curStage=k;lab.textContent=stages[k][1]}}
+  addEventListener('resize',()=>{measure();measureTops();lastY=-1;update()});
+  addEventListener('load',()=>{measure();measureTops();lastY=-1;update()});
+  measure();measureTops();
   if(!reduce){(function loop(){requestAnimationFrame(loop);update()})()}else{update();addEventListener('scroll',update,{passive:true})}
   // Smooth inertia for mouse wheels: eases toward the target for about a second after the wheel stops.
   // Touch screens, trackpad pinch-zoom and reduced-motion keep native scrolling.
