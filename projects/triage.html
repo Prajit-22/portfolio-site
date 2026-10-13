@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Incident Triage · Prajit Chaturvedi</title><meta name="description" content="Two repos that work together: a Spring Boot incident-tracking API and a React + TypeScript dashboard on top of it.">
+<meta property="og:title" content="Incident Triage · Prajit Chaturvedi"><meta property="og:description" content="Two repos that work together: a Spring Boot incident-tracking API and a React + TypeScript dashboard on top of it."><meta name="theme-color" content="#0a1f16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230a1f16'/%3E%3Ctext x='50' y='68' font-size='56' font-family='sans-serif' font-weight='800' text-anchor='middle' fill='%23c8f542'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css"></head>
+<body data-theme="triage"><canvas id="bg"></canvas><div class="conic"></div><div class="grain"></div><div class="progress"></div>
+<a class="back" href="../index.html#projects">← All projects</a>
+<div class="dnav"><a href="../index.html#contact">Contact</a><a href="../assets/Prajit-Chaturvedi-Resume.pdf" download="Prajit Chaturvedi Resume.pdf">Resume</a></div>
+<section class="dhero"><div class="wrap"><div class="eyebrow">Project</div>
+<h1 class="gs" data-split>Incident Triage</h1>
+<p class="role" style="margin-top:20px;font-size:clamp(1.1rem,2.6vw,1.8rem);color:var(--fg)">Spring Boot API + React dashboard</p>
+<p class="sub" style="max-width:640px;margin-top:14px">Two repos that work together: a Spring Boot incident-tracking API and a React + TypeScript dashboard on top of it.</p>
+<div class="chips"><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">H2</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Vite</span><span class="chip">Vitest</span></div><div class="cta"><a class="btn primary" href="https://github.com/Prajit-22/incident-triage-api" target="_blank" rel="noopener">API on GitHub ↗</a><a class="btn" href="https://github.com/Prajit-22/incident-triage-dashboard" target="_blank" rel="noopener">Dashboard on GitHub ↗</a></div></div>
+<div class="scrollhint"><i></i>scroll</div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Overview</div><h2 class="reveal">What it is</h2><p class="reveal" style="max-width:760px">A small security-incident tracker built in two parts. The Spring Boot REST API stores incidents, validates input, filters and paginates, and enforces a lifecycle rule. The React dashboard reads and writes that API.</p>
+<div class="facts"><div class="fact reveal" data-d="0.00"><h4>API</h4><p>Spring Boot with an H2 database. Create, read, filter by severity and status, paginate.</p></div><div class="fact reveal" data-d="0.06"><h4>Validation</h4><p>Per-field error details; bad payloads, enums and page sizes return 400.</p></div><div class="fact reveal" data-d="0.12"><h4>Lifecycle rule</h4><p>OPEN, INVESTIGATING, RESOLVED. A resolved incident cannot be reopened, enforced by the API and mirrored in the UI.</p></div><div class="fact reveal" data-d="0.18"><h4>Summary endpoint</h4><p>One call returns totals plus counts by status and severity, which powers the dashboard header.</p></div><div class="fact reveal" data-d="0.24"><h4>Dashboard</h4><p>React + TypeScript (Vite): triage summary bars, filterable list, report form, status changes.</p></div><div class="fact reveal" data-d="0.30"><h4>Tests</h4><p>15 MockMvc integration tests on the API; Vitest + Testing Library on the dashboard.</p></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Flow</div><h2 class="reveal">How it works</h2><div class="steps"><div class="step reveal"><div><h4>Report</h4><p>Submit an incident from the dashboard form; the API validates it field by field.</p></div></div><div class="step reveal"><div><h4>Triage</h4><p>Filter by status and severity and watch the summary counts update.</p></div></div><div class="step reveal"><div><h4>Resolve</h4><p>Move incidents through the lifecycle; resolved ones stay locked.</p></div></div></div>
+<div class="note reveal">No authentication: meant for local development. Run the API first, then the dashboard.</div><h2 class="reveal" style="margin-top:70px">Run it</h2><div class="demo reveal"># API (Java 11+, Maven)
+git clone https://github.com/Prajit-22/incident-triage-api
+cd incident-triage-api &amp;&amp; mvn spring-boot:run
+
+# Dashboard (Node 22+)
+git clone https://github.com/Prajit-22/incident-triage-dashboard
+cd incident-triage-dashboard &amp;&amp; npm install &amp;&amp; npm run dev</div></div></section>
+<a class="nextp" href="pulseboard.html"><small>Next project</small><b class="grad">Pulseboard →</b></a>
+<footer>© <span id="yr"></span> Prajit Chaturvedi</footer>
+<script src="../js/bg.js"></script><script src="../js/main.js"></script></body></html>

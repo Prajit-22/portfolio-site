@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ragkit · Prajit Chaturvedi</title><meta name="description" content="Dependency-free retrieval-augmented generation toolkit: chunking, BM25, vector and hybrid retrieval, answers with cited sources.">
+<meta property="og:title" content="ragkit · Prajit Chaturvedi"><meta property="og:description" content="Dependency-free retrieval-augmented generation toolkit: chunking, BM25, vector and hybrid retrieval, answers with cited sources."><meta name="theme-color" content="#0a1f16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230a1f16'/%3E%3Ctext x='50' y='68' font-size='56' font-family='sans-serif' font-weight='800' text-anchor='middle' fill='%23c8f542'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css"></head>
+<body data-theme="ragkit"><canvas id="bg"></canvas><div class="conic"></div><div class="grain"></div><div class="progress"></div>
+<a class="back" href="../index.html#projects">← All projects</a>
+<div class="dnav"><a href="../index.html#contact">Contact</a><a href="../assets/Prajit-Chaturvedi-Resume.pdf" download="Prajit Chaturvedi Resume.pdf">Resume</a></div>
+<section class="dhero"><div class="wrap"><div class="eyebrow">Project</div>
+<h1 class="gs" data-split>ragkit</h1>
+<p class="role" style="margin-top:20px;font-size:clamp(1.1rem,2.6vw,1.8rem);color:var(--fg)">A RAG toolkit in plain Python</p>
+<p class="sub" style="max-width:640px;margin-top:14px">Dependency-free retrieval-augmented generation toolkit: chunking, BM25, vector and hybrid retrieval, answers with cited sources.</p>
+<div class="chips"><span class="chip">Python</span><span class="chip">BM25</span><span class="chip">TF-IDF</span><span class="chip">RRF</span><span class="chip">GitHub Actions</span></div><div class="cta"><a class="btn primary" href="https://github.com/Prajit-22/ragkit" target="_blank" rel="noopener">View on GitHub ↗</a></div></div>
+<div class="scrollhint"><i></i>scroll</div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Overview</div><h2 class="reveal">What it is</h2><p class="reveal" style="max-width:760px">ragkit is a small retrieval-augmented generation toolkit written with only the Python standard library. It keeps the shape of a production pipeline (chunk, index, retrieve, generate) while staying runnable anywhere Python runs, with no API keys or model downloads needed to test or demo it.</p>
+<div class="facts"><div class="fact reveal" data-d="0.00"><h4>Chunking</h4><p>Fixed-size windows with overlap, or sentence-aware chunks that never split a sentence.</p></div><div class="fact reveal" data-d="0.06"><h4>BM25 retrieval</h4><p>Okapi BM25 with document-length normalisation and metadata filters.</p></div><div class="fact reveal" data-d="0.12"><h4>Vector retrieval</h4><p>In-memory cosine similarity over pluggable embedders. Ships with a hashing embedder and a corpus-fit TF-IDF embedder (no neural embeddings by default).</p></div><div class="fact reveal" data-d="0.18"><h4>Hybrid search</h4><p>Reciprocal rank fusion over the lexical and vector rankings.</p></div><div class="fact reveal" data-d="0.24"><h4>Cited answers</h4><p>Every answer carries its source chunks and scores so it can be cited.</p></div><div class="fact reveal" data-d="0.30"><h4>Pluggable LLM</h4><p>One-method protocol for embedders and LLMs; an offline echo LLM is included for tests and demos.</p></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Flow</div><h2 class="reveal">How it works</h2><div class="steps"><div class="step reveal"><div><h4>Chunk</h4><p>Split documents into overlapping windows or whole-sentence chunks.</p></div></div><div class="step reveal"><div><h4>Index and retrieve</h4><p>Rank chunks with BM25, vector similarity, or both fused with RRF.</p></div></div><div class="step reveal"><div><h4>Generate with sources</h4><p>Build the prompt from the top chunks and return the answer with its cited sources.</p></div></div></div>
+<div class="note reveal">Standard library only. Python 3.9+. Tested, with GitHub Actions CI.</div><h2 class="reveal" style="margin-top:70px">Run it</h2><div class="demo reveal">git clone https://github.com/Prajit-22/ragkit.git
+cd ragkit
+python examples/quickstart.py</div></div></section>
+<a class="nextp" href="kalesh.html"><small>Next project</small><b class="grad">KaleshAI →</b></a>
+<footer>© <span id="yr"></span> Prajit Chaturvedi</footer>
+<script src="../js/bg.js"></script><script src="../js/main.js"></script></body></html>

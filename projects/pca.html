@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Post-Conversation Analysis · Prajit Chaturvedi</title><meta name="description" content="Analyses customer support conversations across seven NLP metrics, with scheduled background processing and an admin dashboard.">
+<meta property="og:title" content="Post-Conversation Analysis · Prajit Chaturvedi"><meta property="og:description" content="Analyses customer support conversations across seven NLP metrics, with scheduled background processing and an admin dashboard."><meta name="theme-color" content="#0a1f16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230a1f16'/%3E%3Ctext x='50' y='68' font-size='56' font-family='sans-serif' font-weight='800' text-anchor='middle' fill='%23c8f542'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css"></head>
+<body data-theme="pca"><canvas id="bg"></canvas><div class="conic"></div><div class="grain"></div><div class="progress"></div>
+<a class="back" href="../index.html#projects">← All projects</a>
+<div class="dnav"><a href="../index.html#contact">Contact</a><a href="../assets/Prajit-Chaturvedi-Resume.pdf" download="Prajit Chaturvedi Resume.pdf">Resume</a></div>
+<section class="dhero"><div class="wrap"><div class="eyebrow">Project</div>
+<h1 class="gs" data-split>Post-Conversation Analysis</h1>
+<p class="role" style="margin-top:20px;font-size:clamp(1.1rem,2.6vw,1.8rem);color:var(--fg)">Django REST API + Celery for support chats</p>
+<p class="sub" style="max-width:640px;margin-top:14px">Analyses customer support conversations across seven NLP metrics, with scheduled background processing and an admin dashboard.</p>
+<div class="chips"><span class="chip">Python</span><span class="chip">Django REST</span><span class="chip">Celery</span><span class="chip">TextBlob</span><span class="chip">NLTK</span><span class="chip">SQLite</span></div><div class="cta"><a class="btn primary" href="https://github.com/Prajit-22/post-conversation-analysis" target="_blank" rel="noopener">View on GitHub ↗</a></div></div>
+<div class="scrollhint"><i></i>scroll</div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Overview</div><h2 class="reveal">What it is</h2><p class="reveal" style="max-width:760px">A Django REST API that automatically analyses customer support conversations across seven NLP metrics: sentiment, empathy, clarity, relevance, accuracy, completeness and response time. Celery runs scheduled background analysis and a Django admin dashboard is used to review results. It started as my HackerHub8 internship project.</p>
+<div class="facts"><div class="fact reveal" data-d="0.00"><h4>Upload conversations</h4><p>POST a user/AI message sequence and all content is stored.</p></div><div class="fact reveal" data-d="0.06"><h4>Seven metrics</h4><p>Every conversation is scored on clarity, relevance, accuracy, completeness, empathy, sentiment and average response time, plus fallback detection, resolution status and escalation flags.</p></div><div class="fact reveal" data-d="0.12"><h4>On-demand or scheduled</h4><p>Trigger analysis through the API, or let Celery Beat process pending conversations every minute.</p></div><div class="fact reveal" data-d="0.18"><h4>Reports API</h4><p>List and filter analyses by sentiment and resolution, ordered by overall score.</p></div><div class="fact reveal" data-d="0.24"><h4>Admin dashboard</h4><p>Manage conversations, messages and analyses from Django admin.</p></div><div class="fact reveal" data-d="0.30"><h4>Tested</h4><p>A 32-test suite covering the analyzers, API, filters and tasks, with CI.</p></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Flow</div><h2 class="reveal">How it works</h2><div class="steps"><div class="step reveal"><div><h4>Upload</h4><p>Send a conversation as a sequence of user and AI messages.</p></div></div><div class="step reveal"><div><h4>Analyse</h4><p>Pure-function analyzers score the seven metrics, via the API or the Celery schedule.</p></div></div><div class="step reveal"><div><h4>Review</h4><p>Filter reports by sentiment and resolution, or browse in the admin dashboard.</p></div></div></div>
+<div class="note reveal">SQLite by default (PostgreSQL via settings). Scheduled analysis needs Redis for the Celery broker.</div><h2 class="reveal" style="margin-top:70px">Run it</h2><div class="demo reveal">git clone https://github.com/Prajit-22/post-conversation-analysis.git
+cd post-conversation-analysis
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver</div></div></section>
+<a class="nextp" href="ragkit.html"><small>Next project</small><b class="grad">ragkit →</b></a>
+<footer>© <span id="yr"></span> Prajit Chaturvedi</footer>
+<script src="../js/bg.js"></script><script src="../js/main.js"></script></body></html>

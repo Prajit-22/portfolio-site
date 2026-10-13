@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pulseboard · Prajit Chaturvedi</title><meta name="description" content="Next.js dashboard that mixes news, movie recommendations and mock social posts in one feed, with favourites, search and drag-and-drop.">
+<meta property="og:title" content="Pulseboard · Prajit Chaturvedi"><meta property="og:description" content="Next.js dashboard that mixes news, movie recommendations and mock social posts in one feed, with favourites, search and drag-and-drop."><meta name="theme-color" content="#0a1f16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230a1f16'/%3E%3Ctext x='50' y='68' font-size='56' font-family='sans-serif' font-weight='800' text-anchor='middle' fill='%23c8f542'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../css/style.css"></head>
+<body data-theme="pulse"><canvas id="bg"></canvas><div class="conic"></div><div class="grain"></div><div class="progress"></div>
+<a class="back" href="../index.html#projects">← All projects</a>
+<div class="dnav"><a href="../index.html#contact">Contact</a><a href="../assets/Prajit-Chaturvedi-Resume.pdf" download="Prajit Chaturvedi Resume.pdf">Resume</a></div>
+<section class="dhero"><div class="wrap"><div class="eyebrow">Project</div>
+<h1 class="gs" data-split>Pulseboard</h1>
+<p class="role" style="margin-top:20px;font-size:clamp(1.1rem,2.6vw,1.8rem);color:var(--fg)">Personalised content dashboard</p>
+<p class="sub" style="max-width:640px;margin-top:14px">Next.js dashboard that mixes news, movie recommendations and mock social posts in one feed, with favourites, search and drag-and-drop.</p>
+<div class="chips"><span class="chip">Next.js</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Redux Toolkit</span></div><div class="cta"><a class="btn primary" href="https://pulseboard-phi-blush.vercel.app/" target="_blank" rel="noopener">Live demo ↗</a><a class="btn" href="https://github.com/Prajit-22/pulseboard" target="_blank" rel="noopener">View on GitHub ↗</a></div></div>
+<div class="scrollhint"><i></i>scroll</div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Overview</div><h2 class="reveal">What it is</h2><p class="reveal" style="max-width:760px">Pulseboard is a personalised content dashboard. News, movie recommendations and mock social posts share one responsive feed. It works immediately without API keys.</p>
+<div class="facts"><div class="fact reveal" data-d="0.00"><h4>One feed</h4><p>News, movies and social posts in a single responsive layout.</p></div><div class="fact reveal" data-d="0.06"><h4>Favourites</h4><p>Save items and find them again; favourites persist.</p></div><div class="fact reveal" data-d="0.12"><h4>Debounced search</h4><p>Search filters the feed without hammering on every keystroke.</p></div><div class="fact reveal" data-d="0.18"><h4>Drag and drop</h4><p>Reorder your feed.</p></div><div class="fact reveal" data-d="0.24"><h4>Dark mode</h4><p>Theme toggle.</p></div><div class="fact reveal" data-d="0.30"><h4>Server-side providers</h4><p>NewsAPI and TMDB are called server-side when keys are set; otherwise sample data is shown.</p></div></div></div></section>
+<section><div class="wrap"><div class="eyebrow reveal">Flow</div><h2 class="reveal">How it works</h2><div class="steps"><div class="step reveal"><div><h4>Browse</h4><p>My feed, Trending and Favorites views.</p></div></div><div class="step reveal"><div><h4>Personalise</h4><p>Save items, search, and reorder with drag and drop.</p></div></div><div class="step reveal"><div><h4>Plug in real data</h4><p>Add NewsAPI and TMDB keys to swap the sample data for live providers.</p></div></div></div>
+<div class="note reveal">The live demo runs on sample data, not live provider data.</div><h2 class="reveal" style="margin-top:70px">Run it</h2><div class="demo reveal">git clone https://github.com/Prajit-22/pulseboard.git
+cd pulseboard
+npm install
+npm run dev</div></div></section>
+<a class="nextp" href="pca.html"><small>Next project</small><b class="grad">Post-Conversation Analysis →</b></a>
+<footer>© <span id="yr"></span> Prajit Chaturvedi</footer>
+<script src="../js/bg.js"></script><script src="../js/main.js"></script></body></html>
