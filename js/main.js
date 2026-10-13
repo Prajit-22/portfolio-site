@@ -14,13 +14,15 @@
   const bar=$('.progress'),tl=$('.tl'),fill=$('.tl .fill'),mqs=$$('.mq');
   let per=[],lastY=-1,vel=0;
   const measure=()=>{per=mqs.map(m=>m.scrollWidth/2||1)};
+  let tlTop=0,tlH=1;
+  const measureTl=()=>{if(tl){const r=tl.getBoundingClientRect();tlTop=r.top+scrollY;tlH=r.height}};
+  const native=()=>window.SCENE&&SCENE.native;
   function update(){
-    const y=window.scrollY;if(y===lastY)return;vel=y-lastY;lastY=y;
-    const dh=document.documentElement.scrollHeight-innerHeight;
-    if(bar)bar.style.transform='scaleX('+(dh>0?y/dh:0)+')';
-    if(window.SCENE)SCENE.update(dh>0?Math.min(1,Math.max(0,y/dh)):0);
+    const y=window.scrollY;if(y===lastY)return;lastY=y;
+    const dh=document.documentElement.scrollHeight-innerHeight,p=dh>0?Math.min(1,Math.max(0,y/dh)):0;
+    if(!native()){if(bar)bar.style.transform='scaleX('+p+')';if(window.SCENE)SCENE.update(p);hudPos(p)}
     hud(y,dh);
-    if(fill&&tl){const r=tl.getBoundingClientRect();fill.style.height=Math.min(r.height,Math.max(0,innerHeight*.6-r.top))+'px'}
+    if(fill&&tl)fill.style.transform='scaleY('+Math.min(1,Math.max(0,(y+innerHeight*.6-tlTop)/tlH))+')';
     for(let i=0;i<mqs.length;i++){const o=(y*.35+i*120)%per[i];mqs[i].style.transform='translate3d('+(i%2?-per[i]+o:-o)+'px,0,0)'}
   }
   // altitude HUD (home only): marker follows scroll, label names the current stage
@@ -30,40 +32,19 @@
     hudEl.innerHTML='<i></i><b>Trailhead</b>'+stages.map((s,i)=>'<u style="top:'+(i/(stages.length-1)*100)+'%"></u>').join('');document.body.appendChild(hudEl);dot=hudEl.querySelector('i');lab=hudEl.querySelector('b')}
   const measureTops=()=>{tops=stages.map(s=>{const el=document.getElementById(s[0]);return el?el.getBoundingClientRect().top+scrollY:0})};
   let curStage=-1;
-  function hud(y,dh){if(!hudEl)return;const p=dh>0?y/dh:0;dot.style.top=(p*100)+'%';lab.style.top=(p*100)+'%';
+  function hudPos(p){if(!hudEl)return;const t='translateY('+(p*hudEl.clientHeight).toFixed(1)+'px)';dot.style.transform=t;lab.style.transform=t}
+  function hud(y,dh){if(!hudEl)return;
     let k=0;const mid=y+innerHeight*.45;for(let i=0;i<tops.length;i++)if(mid>=tops[i])k=i;if(y>=dh-4)k=stages.length-1;
     if(k!==curStage){curStage=k;lab.textContent=stages[k][1]}}
-  addEventListener('resize',()=>{measure();measureTops();lastY=-1;update()});
-  addEventListener('load',()=>{measure();measureTops();lastY=-1;update()});
-  measure();measureTops();
-  if(!reduce){(function loop(){requestAnimationFrame(loop);update()})()}else{update();addEventListener('scroll',update,{passive:true})}
-  // Smooth inertia for mouse wheels: eases toward the target for about a second after the wheel stops.
-  // Touch screens, trackpad pinch-zoom and reduced-motion keep native scrolling.
-  if(!reduce&&fine){
-    const maxY=()=>document.documentElement.scrollHeight-innerHeight;
-    let cur=scrollY,target=scrollY,anim=false;
-    const clamp=v=>Math.max(0,Math.min(maxY(),v));
-    function step(){
-      const d=target-cur;
-      if(Math.abs(d)<.4){cur=target;window.scrollTo(0,cur);anim=false;return}
-      cur+=d*.07;window.scrollTo(0,cur);requestAnimationFrame(step);
-    }
-    function go(){if(!anim){anim=true;cur=scrollY;requestAnimationFrame(step)}}
-    addEventListener('wheel',e=>{
-      if(e.ctrlKey||e.defaultPrevented)return;
-      if(e.target.closest&&e.target.closest('.demo')&&Math.abs(e.deltaX)>Math.abs(e.deltaY))return;
-      e.preventDefault();
-      const dy=e.deltaY*(e.deltaMode===1?32:e.deltaMode===2?innerHeight:1);
-      if(!anim)target=scrollY;
-      target=clamp(target+dy);go();
-    },{passive:false});
-    // keep in sync when something else moves the page (scrollbar drag, keyboard, find, anchors)
-    addEventListener('scroll',()=>{if(!anim){cur=target=scrollY}},{passive:true});
-    document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
-      const id=a.getAttribute('href').slice(1),el=id?document.getElementById(id):document.body;if(!el)return;
-      e.preventDefault();target=clamp(id?el.getBoundingClientRect().top+scrollY:0);go()});
-    addEventListener('resize',()=>{target=clamp(target)});
-  }
+  addEventListener('resize',()=>{measure();measureTops();measureTl();lastY=-1;update()});
+  addEventListener('load',()=>{measure();measureTops();measureTl();lastY=-1;update()});
+  measure();measureTops();measureTl();
+  if(native()){const tlm=new ScrollTimeline({source:document.scrollingElement,axis:'block'});
+    const drive=()=>{if(bar)bar.animate([{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{timeline:tlm,fill:'both',easing:'linear'});
+      if(hudEl){hudAnim.forEach(a=>a.cancel());hudAnim=[dot,lab].map(e=>e.animate([{transform:'translateY(0px)'},{transform:'translateY('+hudEl.clientHeight+'px)'}],{timeline:tlm,fill:'both',easing:'linear'}))}};
+    let hudAnim=[];drive();addEventListener('resize',()=>{hudAnim.forEach(a=>a.cancel());if(hudEl)hudAnim=[dot,lab].map(e=>e.animate([{transform:'translateY(0px)'},{transform:'translateY('+hudEl.clientHeight+'px)'}],{timeline:tlm,fill:'both',easing:'linear'}))})}
+  let tick=0;const onScroll=()=>{if(!tick)tick=requestAnimationFrame(()=>{tick=0;update()})};
+  update();addEventListener('scroll',onScroll,{passive:true});
   // magnetic buttons
   if(!reduce&&fine)$$('.btn,.mail').forEach(b=>{b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.transform='translate('+(e.clientX-r.left-r.width/2)*.18+'px,'+(e.clientY-r.top-r.height/2)*.25+'px)'});b.addEventListener('pointerleave',()=>b.style.transform='')});
   const cp=$('#copy');cp&&cp.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('contact.prjtchaturvedi@gmail.com');cp.textContent='Copied';setTimeout(()=>cp.textContent='Copy email',1600)}catch(e){}});

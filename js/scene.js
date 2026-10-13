@@ -75,17 +75,26 @@
     `<div class="far">${farSvg}</div><div class="world"><div class="mt">${mountain}</div>${mists}</div><div class="fg">${fgSvg}</div>`;
   const skyEls=[...host.querySelectorAll('.sky')],orb=host.querySelector('.orb'),flg=host.querySelector('.flag'),far_=host.querySelector('.far'),world=host.querySelector('.world'),fg=host.querySelector('.fg');
   let vh=innerHeight,vw=innerWidth,last=0;
-  function apply(p){
-    last=p;const c=m.c[0]+(m.c[1]-m.c[0])*p,n=skyEls.length,fpos=c*(n-1);
-    world.style.transform='translate3d(0,'+(-(3.2*vh-vh)*(1-c)+c*c*c*vh*(vw<820?.8:.5)).toFixed(1)+'px,0)';
-    far_.style.transform='translate3d(0,'+(-(1.5*vh-vh)*(1-c)).toFixed(1)+'px,0)';
-    fg.style.transform='translate3d(0,'+(c*vh*1.3).toFixed(1)+'px,0)';
-    for(let i=0;i<n;i++)skyEls[i].style.opacity=Math.max(0,1-Math.abs(fpos-i)).toFixed(3);
-    if(flg)flg.style.opacity=Math.max(0,Math.min(1,(c-.9)*12)).toFixed(2);
-    const ox=vw*(.76-.2*c),oy=vh*(.74-.58*c);
-    orb.style.transform='translate3d('+ox.toFixed(0)+'px,'+oy.toFixed(0)+'px,0)';
+  const vals=p=>{const c=m.c[0]+(m.c[1]-m.c[0])*p,n=skyEls.length,fpos=c*(n-1);
+    return{world:'translate3d(0,'+(-(3.2*vh-vh)*(1-c)+c*c*c*vh*(vw<820?.8:.5)).toFixed(1)+'px,0)',far:'translate3d(0,'+(-(1.5*vh-vh)*(1-c)).toFixed(1)+'px,0)',fg:'translate3d(0,'+(c*vh*1.3).toFixed(1)+'px,0)',
+      sky:skyEls.map((_,i)=>Math.max(0,1-Math.abs(fpos-i)).toFixed(3)),flag:Math.max(0,Math.min(1,(c-.9)*12)).toFixed(2),
+      orb:'translate3d('+(vw*(.76-.2*c)).toFixed(0)+'px,'+(vh*(.74-.58*c)).toFixed(0)+'px,0)'}};
+  /* fallback (no scroll-driven animations): JS sets the same values */
+  function apply(p){last=p;const v=vals(p);world.style.transform=v.world;far_.style.transform=v.far;fg.style.transform=v.fg;orb.style.transform=v.orb;
+    skyEls.forEach((e,i)=>e.style.opacity=v.sky[i]);if(flg)flg.style.opacity=v.flag}
+  /* preferred: Web Animations driven by the scroll position. These only touch transform/opacity, so the browser
+     runs them on the compositor, in lockstep with native scrolling (no main-thread work per scroll frame). */
+  const canTimeline=!reduce&&typeof ScrollTimeline!=='undefined'&&typeof Element.prototype.animate==='function';
+  let anims=[];
+  function build(){
+    anims.forEach(a=>a.cancel());anims=[];
+    const tl=new ScrollTimeline({source:document.scrollingElement,axis:'block'}),N=12,S=[];
+    for(let i=0;i<=N;i++)S.push(vals(i/N));
+    const run=(el,key,fn)=>{if(!el)return;anims.push(el.animate(S.map((v,i)=>({offset:i/N,[key]:fn(v)})),{timeline:tl,fill:'both',easing:'linear'}))};
+    run(world,'transform',v=>v.world);run(far_,'transform',v=>v.far);run(fg,'transform',v=>v.fg);run(orb,'transform',v=>v.orb);
+    skyEls.forEach((e,i)=>run(e,'opacity',v=>v.sky[i]));run(flg,'opacity',v=>v.flag);
   }
-  window.SCENE={update:apply};
-  addEventListener('resize',()=>{vh=innerHeight;vw=innerWidth;apply(last)});
-  apply(reduce?.2:0);
+  window.SCENE={update:canTimeline?function(){}:apply,native:canTimeline};
+  addEventListener('resize',()=>{vh=innerHeight;vw=innerWidth;canTimeline?build():apply(last)});
+  if(canTimeline)build();else apply(reduce?.2:0);
 })();
