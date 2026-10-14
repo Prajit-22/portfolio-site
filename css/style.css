@@ -144,3 +144,13 @@ body{background:var(--bg)}
 @media(prefers-reduced-motion:reduce){#scene .mist,#scene .stars .tw{animation:none}}
 body[data-theme=triage]{--bg:#0c2218;--fg:#eef0e2;--mut:#b6c7ba;--a:#8fe0a8;--accent:#8fe0a8;--accent2:#8fe0a8;--line:rgba(238,240,226,.24);--card:rgba(14,40,30,.82);--g1:#8fe0a8;--g2:#eef0e2;--onacc:#07150f;--navbg:rgba(12,34,24,.9)}
 body[data-theme=triage] .demo{background:#06130d;color:#eef0e2}
+
+/* Education is a separate stop on the climb; work stays in the timeline. */
+section[id]{scroll-margin-top:64px}
+.education-card{position:relative;border:1px solid var(--line);background:var(--card);border-radius:24px;padding:clamp(24px,4vw,42px);max-width:900px}
+.education-card .when{font:500 .85rem ui-monospace,Menlo,monospace;color:var(--accent);margin-bottom:14px}
+.education-card h3{font-size:clamp(1.6rem,3.5vw,2.6rem);margin-bottom:14px}
+.education-card .university{color:var(--fg);font-weight:600;margin-bottom:6px}
+.education-score{display:inline-flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);margin-top:24px;padding-top:18px;font-size:.85rem;color:var(--mut)}
+.education-score strong{font-size:1.6rem;color:var(--accent);letter-spacing:-.03em}
+.cert-heading{font-size:1.3rem;margin-top:38px}.cert-heading+.certs{margin-top:18px}

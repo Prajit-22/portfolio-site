@@ -26,7 +26,7 @@
     for(let i=0;i<mqs.length;i++){const o=(y*.35+i*120)%per[i];mqs[i].style.transform='translate3d('+(i%2?-per[i]+o:-o)+'px,0,0)'}
   }
   // altitude HUD (home only): marker follows scroll, label names the current stage
-  const stages=[['top','Trailhead'],['about','Base camp'],['projects','Treeline'],['skills','Ridge'],['experience','High camp'],['contact','Summit']];
+  const stages=[['top','Trailhead'],['about','Base camp'],['projects','Treeline'],['skills','Ridge'],['experience','High camp'],['education','Final ascent'],['contact','Summit']];
   let hudEl=null,dot,lab,tops=[];
   if(document.body.dataset.theme==='home'){hudEl=document.createElement('div');hudEl.className='hud';hudEl.setAttribute('aria-hidden','true');
     hudEl.innerHTML='<i></i><b>Trailhead</b>'+stages.map((s,i)=>'<u style="top:'+(i/(stages.length-1)*100)+'%"></u>').join('');document.body.appendChild(hudEl);dot=hudEl.querySelector('i');lab=hudEl.querySelector('b')}
