@@ -10,6 +10,7 @@
     kalesh:{c:[.3,.62],sky:[['#f5d9bd','#f3e4cd'],['#f7d0b0','#f4e2cc']],lit:'#ecdcc4',shade:'#d8c3a6',snow:'#fff3e4',snowSh:'#ecd2c3',tree:'#c5c79c',tree2:'#adb484',far:'#e8d5be',far2:'#ddc5ab',mist:'rgba(255,240,225,.7)',orb:'#d9552b',route:'#a4401c',line:'rgba(80,40,20,.16)',stars:0,seed:23,bigOrb:1},
     triage:{c:[.55,.88],sky:[['#0b2017','#16372a'],['#0e281d','#1b4130']],lit:'#2f5c48',shade:'#183c2c',snow:'#cfe0d6',snowSh:'#86a899',tree:'#22503b',tree2:'#16402e',far:'#1e4837',far2:'#275544',mist:'rgba(160,210,180,.14)',orb:'#eee8c8',route:'#8fe0a8',line:'rgba(220,240,228,.14)',stars:1,seed:31},
     pulse:{c:[.74,1],sky:[['#f8d9c6','#f4e9d8'],['#fbe4c4','#fff4dc']],lit:'#e4ead9',shade:'#c9d9cc',snow:'#fffaf0',snowSh:'#e3e9e7',tree:'#aec6b6',tree2:'#9ab5a5',far:'#dde7dc',far2:'#cfddd4',mist:'rgba(255,255,255,.75)',orb:'#f0a14e',route:'#b0702a',line:'rgba(19,39,28,.15)',stars:0,seed:41},
+    brain:{c:[.42,.74],sky:[['#eae4f3','#f1ecf6'],['#e3dcf1','#ede7f5']],lit:'#e3ddef',shade:'#ccc3de',snow:'#f8f5fc',snowSh:'#ded7eb',tree:'#b4a9cd',tree2:'#a295be',far:'#d6cfe7',far2:'#c9c1de',mist:'rgba(255,255,255,.85)',orb:'#b79ce0',route:'#6d4fa8',line:'rgba(40,25,70,.14)',stars:0,seed:67},
     pca:{c:[0,.3],sky:[['#e3eee9','#ecf2e6'],['#e8f0e6','#f0f3e7']],lit:'#dfe9d6',shade:'#c8d8c3',snow:'#fbf9f1',snowSh:'#dfe7e4',tree:'#afc8a8',tree2:'#9ab795',far:'#d9e5d6',far2:'#cbdbca',mist:'rgba(255,255,255,.8)',orb:'#fff7e0',route:'#4d7f2a',line:'rgba(19,39,28,.15)',stars:0,seed:53}
   };
   const m=MOODS[theme]||MOODS.home;
