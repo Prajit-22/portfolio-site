@@ -103,7 +103,8 @@ footer{padding:30px;text-align:center;color:var(--mut);font-size:.82rem}
  .about-grid{grid-template-columns:1fr}
  .pgrid{grid-template-columns:1fr}
  .step{grid-template-columns:48px 1fr}
- .dnav{display:none}
+ .dnav{top:14px;right:14px;gap:6px}
+ .dnav a{font-size:.78rem;padding:6px 12px}
 }
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero h1 .ch{animation:none;transform:none}.conic{display:none}}
 
